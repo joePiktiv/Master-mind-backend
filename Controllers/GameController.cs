@@ -53,12 +53,12 @@ public class GameController : ControllerBase
             {
                 return BadRequest("Name cannot be empty or more than 10 charactors.");
             }
-            var found = Games.Find(g => g.Id == id);
+            var found = Games.Find(g => g.Id == id.Substring(0, 5));
             if (found == null)
             {
                 //return NotFound("Game id does not exist");
-                Games.Add(new Game(id.Length == 0 ? Game.GenerateId(5) : id.Substring(0,Math.Min(5, id.Length)) , name));
-                found = Games.Find(g => g.Id == id);
+                Games.Add(new Game(id.Length == 0 ? Game.GenerateId(5) : id.Substring(0,5) , name));
+                // found = Games.Find(g => g.Id == id.Substring(0, 5));
             } else
             {
                 name = found.Join(name);
